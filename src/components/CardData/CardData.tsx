@@ -10,7 +10,7 @@ type CardDataProp = {
 	formatTitle: (value: string) => string;
 };
 
-export const RenderInput = (title: string, values: { internalUse: boolean; show: boolean }) => {
+export const RenderInput = (title: string, values: { internalUse: boolean; show: boolean } | any) => {
 	if (title === "firstName" || title === "lastName" || title === "emailId") return;
 	return (
 		<>

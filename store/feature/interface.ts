@@ -9,17 +9,17 @@ export interface ProfileVal {
 
 export type QuestionType = "Paragraph" | "shortAnswer" | "yesOrNo" | "dropDown" | "multiChoice" | "date" | "number" | "fileUpload" | "videoQuestion";
 export interface Question {
-	id: string;
-	type: string;
-	question: string;
-	choices: string[];
-	maxChoice: number;
-	disqualify: boolean;
-	other: boolean;
+	id?: string;
+	type?: QuestionType;
+	question?: string;
+	choices?: string[];
+	maxChoice?: number;
+	disqualify?: boolean;
+	other?: boolean;
 }
 
 interface Attributes {
-	coverImage: string;
+	coverImage?: string;
 	personalInformation?: {
 		firstName?: Toggles;
 		lastName?: Toggles;
@@ -27,24 +27,24 @@ interface Attributes {
 		phoneNumber?: Toggles;
 		nationality?: Toggles;
 		currentResidence?: Toggles;
-		idNumber: Toggles;
-		dateOfBirth: Toggles;
-		gender: Toggles;
+		idNumber?: Toggles;
+		dateOfBirth?: Toggles;
+		gender?: Toggles;
+		personalQuestions?: Question[];
 	};
-	personalQuestions?: Question;
 	profile?: {
-		education: ProfileVal;
-		experience: ProfileVal;
-		resume: ProfileVal;
+		education?: ProfileVal;
+		experience?: ProfileVal;
+		resume?: ProfileVal;
+		profileQuestions?: Question[];
 	};
-	profileQuestions?: Question;
-	customisedQuestions?: Question;
+	customisedQuestions?: Question[];
 }
 
 export type ApplicationFormData = {
-	id: string;
-	type: string;
-	attributes: Attributes;
+	id?: string;
+	type?: string;
+	attributes?: Attributes;
 };
 
 export type Options = { value: string; label: string };

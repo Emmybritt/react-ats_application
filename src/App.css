@@ -14,6 +14,8 @@ body {
 	background-color: #e2ce1a;
 	height: 100vh;
 	padding: 3rem;
+	position: relative;
+	overflow-y: scroll;
 }
 
 .main {

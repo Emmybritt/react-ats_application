@@ -6,7 +6,10 @@ import { Question } from "./components/Question/Question";
 import { useApplication } from "./hooks/useApplication";
 
 function App() {
-	const { form, formatCardTitle, handleChangeinput, image, setImage, questionType, setQuestionType, addNewQuestion } = useApplication();
+	const { form, formatCardTitle, handleChangeinput, image, setImage, setQuestionType, addNewQuestion } = useApplication();
+	const personalInformation = form?.attributes?.personalInformation;
+	const profile = form?.attributes?.profile;
+
 	return (
 		<>
 			<div className="container">
@@ -20,8 +23,24 @@ function App() {
 							</div>
 						</div>
 					)}
-
-					<Question type={questionType} setQuestionType={(e) => setQuestionType(e)} />
+					{personalInformation?.personalQuestions?.map((question, _id: number) => (
+						<div key={_id}>
+							<Question
+								section="Personal information question"
+								type={question.type}
+								setQuestionType={(e) => setQuestionType(e)}
+							/>
+						</div>
+					))}
+					{profile?.profileQuestions?.map((question, _id: number) => (
+						<div key={_id}>
+							<Question
+								section="Profile question"
+								type={question.type}
+								setQuestionType={(e) => setQuestionType(e)}
+							/>
+						</div>
+					))}
 				</div>
 				<div className="main">
 					<div>

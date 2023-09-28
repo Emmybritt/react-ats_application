@@ -8,15 +8,16 @@ import { CloseOutlined, PlusOutlined, UnorderedListOutlined } from "@ant-design/
 
 export type QuestionProp = {
 	type?: QuestionType;
+	section?: string;
 	setQuestionType?: (value: QuestionType) => void;
 };
 
-export const Question: FC<QuestionProp> = ({ type = "Paragraph", setQuestionType }) => {
+export const Question: FC<QuestionProp> = ({ type = "Paragraph", setQuestionType, section }) => {
 	return (
 		<>
 			<Card
 				className="mt-2"
-				cardTitle="Question"
+				cardTitle={section ? section : `Question`}
 				footerLeft={
 					<Button type="text" style={{ color: "#A80000", fontWeight: "600" }}>
 						<CloseOutlined color="red" /> Delete question

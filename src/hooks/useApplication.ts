@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { UpdateApplication, getApplicationFormData, updateApplication } from "../../store/feature/applicationSlice";
 import { useAppDispatch, useAppSelector } from "../../store/store";
-import { QuestionType } from "../../store/feature/interface";
+import { Question, QuestionType } from "../../store/feature/interface";
 
 export const useApplication = () => {
 	const [form, setForm] = useState<Partial<UpdateApplication>>();
@@ -51,8 +51,30 @@ export const useApplication = () => {
 	};
 
 	const addNewQuestion = (key: string) => {
+		const newQuestion: Question = {
+			type: "Paragraph",
+			question: "string",
+			choices: ["string"],
+			maxChoice: 0,
+			disqualify: false,
+			other: false,
+		};
+		if (key === "personalInformation") {
+			setForm((prev) => ({
+				...prev,
+				attributes: {
+					...prev?.attributes,
+					personalInformation: {
+						...prev?.attributes?.personalInformation,
+						personalQuestions: [...(prev?.attributes?.personalInformation?.personalQuestions ?? []), newQuestion],
+					},
+				},
+			}));
+		}
 		console.log(key);
 	};
+
+	const deleteQuestion = () => {};
 
 	useEffect(() => {
 		setForm({ ...applicationForm });
@@ -76,5 +98,6 @@ export const useApplication = () => {
 		newQuestion,
 		setNewQuestion,
 		addNewQuestion,
+		deleteQuestion,
 	};
 };
