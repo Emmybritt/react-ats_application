@@ -1,0 +1,40 @@
+.mt-2 {
+	margin-top: 2rem;
+}
+.text-capitalize {
+	text-transform: capitalize;
+}
+
+.overflow-y {
+	overflow-y: scroll;
+}
+
+.position-absolute {
+	position: absolute;
+}
+.position-relative {
+	position: relative;
+}
+.position-fixed {
+	position: fixed;
+}
+
+.cursor-pointer {
+	cursor: pointer;
+}
+
+.flex-between {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 3rem;
+}
+
+.other-label {
+	color: #666666;
+	margin-left: 1rem;
+}
+
+.label {
+	font-weight: 600;
+}

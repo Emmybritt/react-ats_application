@@ -1,0 +1,28 @@
+.cardContainer {
+	box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.2);
+	border-radius: 1rem;
+	background-color: white;
+}
+
+.cardTitle {
+	background-color: #d0f7fa;
+	padding: 1.1rem 0.5rem 1.1rem 2rem;
+	border-radius: 1rem 1rem 0 0;
+	font-weight: 600;
+	text-transform: capitalize;
+}
+
+.cardBody {
+	padding: 1.5rem;
+}
+
+.cardFooter {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0 1.5rem 1rem 1.5rem;
+}
+
+.addQuestion {
+	font-weight: 600;
+}

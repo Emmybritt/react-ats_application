@@ -1,0 +1,12 @@
+.card__data-header {
+	border-bottom: 1px solid #c4c4c4;
+	padding: 0.4rem 0 0.5rem 0;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	height: 3rem;
+}
+
+.title {
+	font-weight: 600;
+}
