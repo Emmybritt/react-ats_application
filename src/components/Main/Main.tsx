@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC } from "react";
-import { ApplicationFormData } from "../../../store/feature/interface";
+import { ApplicationFormData, AttributesProp } from "../../../store/feature/interface";
 import Card from "../Card/Card";
 import CardDataComponent from "../CardData/CardData";
 import InputField from "../Input";
@@ -9,14 +9,14 @@ import { Button } from "antd";
 interface MainComponentProp {
 	applicationForm: ApplicationFormData | any;
 	formatCardTitle: (value: string) => string;
-	addQuestion: (value: string) => void;
+	addQuestion: (value: AttributesProp) => void;
 	handleChangeinput: (event: any, name: string) => void;
 }
 
 const MainComponent: FC<MainComponentProp> = ({ applicationForm, formatCardTitle, handleChangeinput, addQuestion }) => {
 	return (
 		<div className="">
-			{Object.entries(applicationForm?.attributes ?? {}).map(([key, values]) => {
+			{Object.entries(applicationForm?.attributes ?? {}).map(([key, values]: [any, unknown]) => {
 				return (
 					<Card
 						key={key}

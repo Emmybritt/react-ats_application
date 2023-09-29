@@ -48,3 +48,5 @@ export type ApplicationFormData = {
 };
 
 export type Options = { value: string; label: string };
+
+export type AttributesProp = keyof Attributes;

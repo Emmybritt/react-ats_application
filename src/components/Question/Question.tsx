@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC } from "react";
 import Card from "../Card/Card";
 import { Button } from "antd";
-import { QuestionType } from "../../../store/feature/interface";
+import { AttributesProp, QuestionType } from "../../../store/feature/interface";
 import InputField from "../Input";
 import { SelectOptions } from "../../constants";
 import { CloseOutlined, PlusOutlined, UnorderedListOutlined } from "@ant-design/icons";
@@ -10,14 +11,20 @@ export type QuestionProp = {
 	type?: QuestionType;
 	section?: string;
 	setQuestionType?: (value: QuestionType) => void;
+	handleChange: (value: any, name: string, section: AttributesProp, index: number) => void;
+	attributes: AttributesProp;
+	index: number;
+	value?: string;
 };
 
-export const Question: FC<QuestionProp> = ({ type = "Paragraph", setQuestionType, section }) => {
+export const Question: FC<QuestionProp> = ({ type = "Paragraph", section, handleChange, attributes, index, value }) => {
+	console.log("section", value);
+
 	return (
 		<>
 			<Card
 				className="mt-2"
-				cardTitle={section ? section : `Question`}
+				cardTitle={section ? section + ` ${1 + index}` : `Question`}
 				footerLeft={
 					<Button type="text" style={{ color: "#A80000", fontWeight: "600" }}>
 						<CloseOutlined color="red" /> Delete question
@@ -31,8 +38,8 @@ export const Question: FC<QuestionProp> = ({ type = "Paragraph", setQuestionType
 				<label htmlFor="" className="label">
 					Type
 					<InputField
-						onChange={setQuestionType}
-						value={type}
+						onChange={(e) => handleChange(e, "type", attributes ?? "", index)}
+						value={value}
 						type="select"
 						style={{ height: 40 }}
 						options={SelectOptions}

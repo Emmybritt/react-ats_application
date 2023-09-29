@@ -23,18 +23,29 @@ function App() {
 							</div>
 						</div>
 					)}
-					{personalInformation?.personalQuestions?.map((question, _id: number) => (
-						<div key={_id}>
-							<Question
-								section="Personal information question"
-								type={question.type}
-								setQuestionType={(e) => setQuestionType(e)}
-							/>
-						</div>
-					))}
+					{personalInformation?.personalQuestions?.map((question, _id: number) => {
+						console.log(question, "test");
+
+						return (
+							<div key={_id}>
+								<Question
+									index={_id}
+									attributes="personalInformation"
+									handleChange={handleChangeinput}
+									section="Personal information question"
+									type={question.type}
+									setQuestionType={(e) => setQuestionType(e)}
+								/>
+							</div>
+						);
+					})}
 					{profile?.profileQuestions?.map((question, _id: number) => (
 						<div key={_id}>
 							<Question
+								value={question.type}
+								index={_id}
+								handleChange={handleChangeinput}
+								attributes="profile"
 								section="Profile question"
 								type={question.type}
 								setQuestionType={(e) => setQuestionType(e)}

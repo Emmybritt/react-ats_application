@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { UpdateApplication, getApplicationFormData, updateApplication } from "../../store/feature/applicationSlice";
 import { useAppDispatch, useAppSelector } from "../../store/store";
-import { Question, QuestionType } from "../../store/feature/interface";
+import { AttributesProp, Question, QuestionType } from "../../store/feature/interface";
 
 export const useApplication = () => {
 	const [form, setForm] = useState<Partial<UpdateApplication>>();
@@ -22,7 +22,7 @@ export const useApplication = () => {
 		return title.replace(/([A-Z])/g, " $1").trim();
 	}
 
-	const handleChangeinput = (info: any, name: string) => {
+	const handleChangeinput = (info: any, name: string, section?: AttributesProp, index?: number) => {
 		if (name === "coverImage") {
 			let newFileList = [...info.fileList];
 
@@ -43,14 +43,83 @@ export const useApplication = () => {
 				...prev,
 				attributes: { ...prev?.attributes, coverImage: newFileList[0].thumbUrl },
 			}));
+		} else {
+			if (section) {
+				// const data: any = form?.attributes && form?.attributes[section];
+				if (index !== undefined) {
+					if (section === "personalInformation") {
+						setForm((prev) => {
+							const updatedPersonalQuestions = [
+								...(prev?.attributes?.personalInformation?.personalQuestions ?? []),
+							];
+							updatedPersonalQuestions[index] = {
+								...updatedPersonalQuestions[index],
+								[name]: info,
+							};
+							return {
+								...prev,
+								attributes: {
+									...prev?.attributes,
+									personalInformation: {
+										...prev?.attributes?.personalInformation,
+										personalQuestions: updatedPersonalQuestions,
+									},
+								},
+							};
+						});
+					} else if (section === "customisedQuestions") {
+						setForm((prev) => {
+							const updateCustomisedQuestions = [...(prev?.attributes?.customisedQuestions ?? [])];
+
+							updateCustomisedQuestions[index] = {
+								...updateCustomisedQuestions[index],
+								[name]: info,
+							};
+
+							return {
+								...prev,
+								attributes: {
+									...prev?.attributes,
+									personalInformation: {
+										...prev?.attributes?.personalInformation,
+										personalQuestions: updateCustomisedQuestions,
+									},
+								},
+							};
+						});
+					} else if (section === "profile") {
+						setForm((prev) => {
+							const profileQuestions = [...(prev?.attributes?.profile?.profileQuestions ?? [])];
+
+							profileQuestions[index] = {
+								...profileQuestions[index],
+								[name]: info,
+							};
+
+							return {
+								...prev,
+								attributes: {
+									...prev?.attributes,
+									profile: {
+										...prev?.attributes?.profile,
+										personalQuestions: profileQuestions,
+									},
+								},
+							};
+						});
+					}
+				}
+			}
 		}
 	};
+
+	console.log(form, "dddddd");
 
 	const SubmitForm = () => {
 		dispatch(updateApplication({ ...form }));
 	};
 
-	const addNewQuestion = (key: string) => {
+	const addNewQuestion = (key: AttributesProp) => {
 		const newQuestion: Question = {
 			type: "Paragraph",
 			question: "string",
@@ -71,10 +140,32 @@ export const useApplication = () => {
 				},
 			}));
 		}
-		console.log(key);
+
+		if (key === "profile") {
+			setForm((prev) => ({
+				...prev,
+				attributes: {
+					...prev?.attributes,
+					profile: {
+						...prev?.attributes?.profile,
+						profileQuestions: [...(prev?.attributes?.profile?.profileQuestions ?? []), newQuestion],
+					},
+				},
+			}));
+		}
+
+		if (key === "customisedQuestions") {
+			setForm((prev) => ({
+				...prev,
+				attributes: {
+					...prev?.attributes,
+					customisedQuestions: [...(prev?.attributes?.customisedQuestions ?? []), newQuestion],
+				},
+			}));
+		}
 	};
 
-	const deleteQuestion = () => {};
+	// const deleteQuestion = (key: number, type: string) => {};
 
 	useEffect(() => {
 		setForm({ ...applicationForm });
@@ -98,6 +189,5 @@ export const useApplication = () => {
 		newQuestion,
 		setNewQuestion,
 		addNewQuestion,
-		deleteQuestion,
 	};
 };
